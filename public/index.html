@@ -3,6 +3,7 @@
   <head>
     <title>Example of the Authorization Code flow with Spotify</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <style type="text/css">
       #login, #loggedin {
         display: none;
@@ -32,6 +33,9 @@
         <br>
         <img id='play-pause-button' src="play-pause.png" onclick="togglePlay()">
         <h1>Playing: <span id="trackName"/></h1>
+        <div class="w3-border" style="width: 50%">
+          <div id="progress-bar" class="w3-grey" style="height:24px;width:0%"></div>
+        </div>
         <img id='current-song-image'>
       </div>
     </div>

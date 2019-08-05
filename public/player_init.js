@@ -32,9 +32,36 @@ function sdkReadyHandler(accessToken) {
   player.connect();
 };
 
+var lastState;
+var currentTrack;
+
 function render(state) {
-  var currentTrack = state.track_window.current_track;
+  lastState = state;
+  currentTrack = state.track_window.current_track;
+  trackPositionMs = lastState.position;
+  trackDurationMs = currentTrack.duration_ms;
   console.log(state.track_window.current_track);
   document.getElementById('trackName').innerHTML = currentTrack.name;
   document.getElementById('current-song-image').src = currentTrack.album.images[0].url;
 }
+
+var trackPositionMs = 0;
+var trackDurationMs = 0;
+
+function updateProgressBar() {
+  console.log('updating progress bar');
+  if(currentTrack && !lastState.paused) {
+    trackPositionMs += 2000;
+    trackDurationMs = currentTrack.duration_ms;
+    trackPercentage = trackPositionMs / trackDurationMs * 100;
+
+    console.log('position: ' + trackPositionMs);
+    console.log('duration: ' + trackDurationMs);
+    console.log('trackPercentage = ' + trackPercentage);
+
+    document.getElementById('progress-bar')
+      .style = 'height:24px; width: ' + trackPercentage + '%';
+  }
+}
+
+setInterval(updateProgressBar, 2000);
