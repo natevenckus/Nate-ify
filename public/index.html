@@ -40,9 +40,7 @@
         <img id='next-track-button' src="next-track.png" onclick="nextTrack()">
         <h1>Playing: <span id="trackName"/></h1>
         <h1>by <span id="artistName"/></h1>
-        <div class="w3-border" style="width: 50%; border-radius: 3px">
-          <div id="progress-bar" class="w3-grey" style="height:5px;width:0%"></div>
-        </div>
+        <input type="range" id="progressBar" min="0" max="100" step="1" value="0" style="width: 50%" onchange="seek(this.value)">
         <p id="trackPosition"></p>
         <p id="trackDuration"></p>
         <img id='current-song-image'>

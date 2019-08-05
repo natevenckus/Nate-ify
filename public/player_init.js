@@ -60,16 +60,17 @@ function formatMilliseconds(ms) {
 }
 
 function updateProgressBar() {
-  console.log('updating progress bar');
   if(currentTrack && !lastState.paused) {
-    trackPositionMs += 1000;
     trackDurationMs = currentTrack.duration_ms;
     trackPercentage = trackPositionMs / trackDurationMs * 100;
 
-    document.getElementById('progress-bar').style.width = trackPercentage + '%';
+    document.getElementById('progressBar').max = trackDurationMs / 1000;
+    document.getElementById('progressBar').value = trackPositionMs / 1000;
 
     document.getElementById('trackPosition').innerHTML = formatMilliseconds(trackPositionMs);
     document.getElementById('trackDuration').innerHTML = formatMilliseconds(trackDurationMs);
+
+    trackPositionMs += 1000;
   }
 }
 
