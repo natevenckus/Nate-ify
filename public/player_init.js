@@ -61,6 +61,7 @@ function formatMilliseconds(ms) {
 
 function updateProgressBar() {
   if(currentTrack && !lastState.paused) {
+    trackPositionMs += 1000;
     trackDurationMs = currentTrack.duration_ms;
     trackPercentage = trackPositionMs / trackDurationMs * 100;
 
@@ -69,8 +70,6 @@ function updateProgressBar() {
 
     document.getElementById('trackPosition').innerHTML = formatMilliseconds(trackPositionMs);
     document.getElementById('trackDuration').innerHTML = formatMilliseconds(trackDurationMs);
-
-    trackPositionMs += 1000;
   }
 }
 

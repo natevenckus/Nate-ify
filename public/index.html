@@ -22,6 +22,10 @@
       #prev-track-button, #next-track-button {
         width: 1em;
       }
+
+      #current-song-image {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      }
     </style>
   </head>
 
@@ -35,15 +39,21 @@
         <div id="user-profile">
         </div>
         <br>
+        <h3>Now Playing:</h3>
+        <h1 id="trackName"/>
+        <h1>by <span id="artistName"/></h1>
+        <br>
+        <img id='current-song-image'>
+        <br>
+        <br>
         <img id='prev-track-button' src="prev-track.png" onclick="prevTrack()">
         <img id='play-pause-button' src="play-pause.png" onclick="togglePlay()">
         <img id='next-track-button' src="next-track.png" onclick="nextTrack()">
-        <h1>Playing: <span id="trackName"/></h1>
-        <h1>by <span id="artistName"/></h1>
+        <br>
+        <br>
         <input type="range" id="progressBar" min="0" max="100" step="1" value="0" style="width: 50%" onchange="seek(this.value)">
         <p id="trackPosition"></p>
         <p id="trackDuration"></p>
-        <img id='current-song-image'>
       </div>
     </div>
 
