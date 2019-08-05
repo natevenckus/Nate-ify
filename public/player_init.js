@@ -2,7 +2,7 @@ function sdkReadyHandler(accessToken) {
   const token = accessToken;
   
   window.player = new Spotify.Player({
-    name: 'Web Playback SDK Quick Start Player',
+    name: 'Nate-ify',
     getOAuthToken: cb => { cb(token); }
   });
 
