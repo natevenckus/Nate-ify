@@ -1,9 +1,13 @@
 function sdkReadyHandler(accessToken) {
   const token = accessToken;
-  const player = new Spotify.Player({
+  
+  window.player = new Spotify.Player({
     name: 'Web Playback SDK Quick Start Player',
     getOAuthToken: cb => { cb(token); }
   });
+
+  console.log('just set player');
+  console.log('player = ' + player);
 
   // Error handling
   player.addListener('initialization_error', ({ message }) => { console.error(message); });
