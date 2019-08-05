@@ -18,6 +18,10 @@
       #play-pause-button {
         width: 2.5em;
       }
+
+      #prev-track-button, #next-track-button {
+        width: 1em;
+      }
     </style>
   </head>
 
@@ -31,11 +35,16 @@
         <div id="user-profile">
         </div>
         <br>
+        <img id='prev-track-button' src="prev-track.png" onclick="prevTrack()">
         <img id='play-pause-button' src="play-pause.png" onclick="togglePlay()">
+        <img id='next-track-button' src="next-track.png" onclick="nextTrack()">
         <h1>Playing: <span id="trackName"/></h1>
-        <div class="w3-border" style="width: 50%">
-          <div id="progress-bar" class="w3-grey" style="height:24px;width:0%"></div>
+        <h1>by <span id="artistName"/></h1>
+        <div class="w3-border" style="width: 50%; border-radius: 3px">
+          <div id="progress-bar" class="w3-grey" style="height:5px;width:0%"></div>
         </div>
+        <p id="trackPosition"></p>
+        <p id="trackDuration"></p>
         <img id='current-song-image'>
       </div>
     </div>

@@ -42,26 +42,35 @@ function render(state) {
   trackDurationMs = currentTrack.duration_ms;
   console.log(state.track_window.current_track);
   document.getElementById('trackName').innerHTML = currentTrack.name;
+  document.getElementById('artistName').innerHTML = currentTrack.artists[0].name;
   document.getElementById('current-song-image').src = currentTrack.album.images[0].url;
 }
 
 var trackPositionMs = 0;
 var trackDurationMs = 0;
 
+function formatMilliseconds(ms) {
+  var date = new Date(ms);
+  var mins = date.getMinutes();
+  var secs = date.getSeconds();
+
+  var secsStr = secs < 10 ? "0" + secs : secs;
+
+  return mins + ":" + secsStr;
+}
+
 function updateProgressBar() {
   console.log('updating progress bar');
   if(currentTrack && !lastState.paused) {
-    trackPositionMs += 2000;
+    trackPositionMs += 1000;
     trackDurationMs = currentTrack.duration_ms;
     trackPercentage = trackPositionMs / trackDurationMs * 100;
 
-    console.log('position: ' + trackPositionMs);
-    console.log('duration: ' + trackDurationMs);
-    console.log('trackPercentage = ' + trackPercentage);
+    document.getElementById('progress-bar').style.width = trackPercentage + '%';
 
-    document.getElementById('progress-bar')
-      .style = 'height:24px; width: ' + trackPercentage + '%';
+    document.getElementById('trackPosition').innerHTML = formatMilliseconds(trackPositionMs);
+    document.getElementById('trackDuration').innerHTML = formatMilliseconds(trackDurationMs);
   }
 }
 
-setInterval(updateProgressBar, 2000);
+setInterval(updateProgressBar, 1000);
