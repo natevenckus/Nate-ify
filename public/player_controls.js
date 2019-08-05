@@ -1,3 +1,3 @@
 function togglePlay() {
-	player.togglePlay();
+	window.player.togglePlay();
 }

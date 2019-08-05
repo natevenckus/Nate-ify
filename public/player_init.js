@@ -16,7 +16,7 @@ function sdkReadyHandler(accessToken) {
   player.addListener('playback_error', ({ message }) => { console.error(message); });
 
   // Playback status updates
-  player.addListener('player_state_changed', state => { console.log(state); });
+  player.addListener('player_state_changed', state => {render(state)});
 
   // Ready
   player.addListener('ready', ({ device_id }) => {
@@ -31,3 +31,10 @@ function sdkReadyHandler(accessToken) {
   // Connect to the player!
   player.connect();
 };
+
+function render(state) {
+  var currentTrack = state.track_window.current_track;
+  console.log(state.track_window.current_track);
+  document.getElementById('trackName').innerHTML = currentTrack.name;
+  document.getElementById('current-song-image').src = currentTrack.album.images[0].url;
+}
