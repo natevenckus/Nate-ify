@@ -19,6 +19,10 @@ var client_id = config.spotify_client_id;
 var client_secret = config.spotify_client_secret;
 var redirect_uri = config.spotify_redirect_uri;
 
+console.log(client_id);
+console.log(client_secret);
+console.log(redirect_uri);
+
 /**
  * Generates a random string containing numbers and letters
  * @param  {number} length The length of the string
@@ -48,7 +52,13 @@ app.get('/login', function(req, res) {
   res.cookie(stateKey, state);
 
   // your application requests authorization
-  var scope = 'streaming user-read-email user-read-private';
+  var scope = 
+    'user-library-modify user-library-read ' + 
+    'streaming ' +
+    'playlist-read-private playlist-read-collaborative playlist-modify-public playlist-modify-private ' +
+    'user-read-recently-played user-top-read ' +
+    'user-read-private user-read-email ' +
+    'user-read-currently-playing user-read-playback-state user-modify-playback-state';
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',

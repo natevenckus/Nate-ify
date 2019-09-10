@@ -44,6 +44,20 @@ function render(state) {
   document.getElementById('trackName').innerHTML = currentTrack.name;
   document.getElementById('artistName').innerHTML = currentTrack.artists[0].name;
   document.getElementById('current-song-image').src = currentTrack.album.images[0].url;
+
+  var saveIcon = document.getElementById('save-icon');
+
+  window.spotifyApi.containsMySavedTracks([currentTrack.id]).then(function(data) {
+    if(data['0']) {
+      saveIcon.src = "black_heart_512.png";
+      saveIcon.onclick = saveCurrentTrack;
+      saveIcon.title = "Save this song";
+    } else {
+      saveIcon.src = "white_heart_512.png";
+      saveIcon.onclick = unsaveCurrentTrack;
+      saveIcon  .title = "Unsave this song";
+    }
+  });
 }
 
 var trackPositionMs = 0;

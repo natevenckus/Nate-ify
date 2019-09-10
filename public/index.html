@@ -26,6 +26,10 @@
       #current-song-image {
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
       }
+
+      #save-icon {
+        width: 1.5em;
+      }
     </style>
   </head>
 
@@ -40,7 +44,8 @@
         </div>
         <br>
         <h3>Now Playing:</h3>
-        <h1 id="trackName"/>
+        <h1 id="trackName"></h1>
+        <img id="save-icon" src="white_heart_512.png" title="Like this song" onclick="toggleLike()">
         <h1>by <span id="artistName"/></h1>
         <br>
         <img id='current-song-image'>
@@ -69,6 +74,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <script src="https://sdk.scdn.co/spotify-player.js"></script>
+    <script src="spotify-web-api.js"></script>
     <script src="player_init.js"></script>
     <script src="player_controls.js"></script>
     <script>
@@ -101,6 +107,10 @@
           alert('There was an error during the authentication');
         } else {
           if (access_token) {
+            window.access_token = access_token;
+            window.spotifyApi = new SpotifyWebApi();
+            window.spotifyApi.setAccessToken(window.access_token);
+
             $.ajax({
                 url: 'https://api.spotify.com/v1/me',
                 headers: {
