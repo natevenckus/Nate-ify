@@ -21,6 +21,7 @@ function sdkReadyHandler(accessToken) {
   // Ready
   player.addListener('ready', ({ device_id }) => {
     console.log('Ready with Device ID', device_id);
+    transferToThisDevice(device_id);
   });
 
   // Not Ready
@@ -104,7 +105,7 @@ function renderPlaylistsRecurse(limit, offset) {
     console.log(data);
 
     data.items.forEach(item => {
-      playlists.push(item.name);
+      playlists.push(item);
     });
 
     if(data.total > limit + offset) {
@@ -115,8 +116,20 @@ function renderPlaylistsRecurse(limit, offset) {
       playlistDiv.style.listStyleType = "decimal";
 
       playlists.forEach(playlist => {
-         playlistDiv.innerHTML += "<li>" + playlist + "</li>";
+         playlistDiv.innerHTML += "<li>";
+         playlistDiv.innerHTML += playlist.name;
+         playlistDiv.innerHTML += "<input type='checkbox' value='" + playlist.id + "' onchange='checkPlaylist(this)'>";
+         playlistDiv.innerHTML += "</li>";
       });
+    }
+  });
+}
+
+
+function transferToThisDevice(deviceID) {
+  window.spotifyApi.transferMyPlayback([deviceID]).then(function(error, data) {
+    if(error) {
+      alert(error);
     }
   });
 }

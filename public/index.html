@@ -48,6 +48,7 @@
         <img id="save-icon" src="white_heart_512.png" title="Like this song" onclick="toggleLike()">
         <h1>by <span id="artistName"/></h1>
         <br>
+        <div id="queue"/>
         <img id='current-song-image'>
         <br>
         <br>
@@ -59,7 +60,10 @@
         <input type="range" id="progressBar" min="0" max="100" step="1" value="0" style="width: 50%" onchange="seek(this.value)">
         <p id="trackPosition"></p>
         <p id="trackDuration"></p>
-        <div id="playlists"/>
+        <input type="button" value="play song" onclick="playTheSong()">;
+        <div id="playlists">
+          <h4>Only play songs belonging to ALL of these playlists:</h4>
+        </div>
       </div>
     </div>
 

@@ -1,0 +1,7 @@
+- Add database connection to store tags that a song has. Or maybe I can store it within the song's own metadata? Hmmmmmm... ;)
+- Then add a player/search feature to be able to find or play songs based on their tags
+- Add feature to be able to add your own tags and also recommended tags based on various attributes that Spotify exposes
+- Honestly, there are many ways I could implement this tag feature. I could store data in my own database. I could try to store tag metadata in Spotify itself. I could use Spotify playlists. I could create playlists "Nateify-rock" etc and use those. I can have an algorithm that fetches those playlists, by name, based on what the user specifies, and then performs intersection on them ;) I like that for now.
+- Maybe for now, just implement playlist intersection? That's a good start that Spotify doesn't even include lol.
+- The playlist intersection alone is great! Now, for the tags to really be useful, you want to have as many options as possible with them. This includes explicitness, length, when it came out, genre, when you added it, all sorts of stuff! Damn this will be powerful :)
+- The tags need to come soon. Once that's somewhat working, I've got to get a move on this UI.
