@@ -30,6 +30,8 @@ function sdkReadyHandler(accessToken) {
 
   // Connect to the player!
   player.connect();
+
+  renderPlaylists();
 };
 
 var lastState;
@@ -45,17 +47,21 @@ function render(state) {
   document.getElementById('artistName').innerHTML = currentTrack.artists[0].name;
   document.getElementById('current-song-image').src = currentTrack.album.images[0].url;
 
+  updateHeart();
+}
+
+function updateHeart() {
   var saveIcon = document.getElementById('save-icon');
 
   window.spotifyApi.containsMySavedTracks([currentTrack.id]).then(function(data) {
     if(data['0']) {
       saveIcon.src = "black_heart_512.png";
-      saveIcon.onclick = saveCurrentTrack;
-      saveIcon.title = "Save this song";
+      saveIcon.onclick = unsaveCurrentTrack;
+      saveIcon.title = "Unsave this song";
     } else {
       saveIcon.src = "white_heart_512.png";
-      saveIcon.onclick = unsaveCurrentTrack;
-      saveIcon  .title = "Unsave this song";
+      saveIcon.onclick = saveCurrentTrack;
+      saveIcon.title = "Save this song";
     }
   });
 }
@@ -85,6 +91,34 @@ function updateProgressBar() {
     document.getElementById('trackPosition').innerHTML = formatMilliseconds(trackPositionMs);
     document.getElementById('trackDuration').innerHTML = formatMilliseconds(trackDurationMs);
   }
+}
+
+function renderPlaylists() {
+    renderPlaylistsRecurse(50, 0);
+}
+
+var playlists = [];
+
+function renderPlaylistsRecurse(limit, offset) {
+  window.spotifyApi.getUserPlaylists({limit: limit, offset: offset}).then(function(data) {
+    console.log(data);
+
+    data.items.forEach(item => {
+      playlists.push(item.name);
+    });
+
+    if(data.total > limit + offset) {
+      renderPlaylistsRecurse(limit, offset + limit);
+    } else {
+      var playlistDiv = document.getElementById("playlists");
+
+      playlistDiv.style.listStyleType = "decimal";
+
+      playlists.forEach(playlist => {
+         playlistDiv.innerHTML += "<li>" + playlist + "</li>";
+      });
+    }
+  });
 }
 
 setInterval(updateProgressBar, 1000);

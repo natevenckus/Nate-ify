@@ -13,7 +13,7 @@ var cors = require('cors');
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
 
-var config = require('../tagplayerconfig');
+var config = require('../Nate-ify-config.json');
 
 var client_id = config.spotify_client_id;
 var client_secret = config.spotify_client_secret;
