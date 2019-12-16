@@ -5,3 +5,30 @@
 - Maybe for now, just implement playlist intersection? That's a good start that Spotify doesn't even include lol.
 - The playlist intersection alone is great! Now, for the tags to really be useful, you want to have as many options as possible with them. This includes explicitness, length, when it came out, genre, when you added it, all sorts of stuff! Damn this will be powerful :)
 - The tags need to come soon. Once that's somewhat working, I've got to get a move on this UI.
+- One of the beauties of this at the moment is that Spotify is doing most of the work! I don't have a database, and I don't need one. And it would be awesome if I could keep it that way. Maybe for caching (if it's even necessary), just keep it in the user's cookies. Then again, we really might want just load everything whenever the user loads the app. That way it's always updated.
+
+On using other devices:
+Hey! So I just realized a couple of things. (1) I can make this web app work even if the user is playing from another device. I need to modify how the UI works first (change it to call the web API instead of the player SDK), and then this app can be fully functional regardless of which device a user is listening from. Additionally (and even cooler, probably!!) with this knowledge, I can actually make an app that runs alongside Spotify on someone's phone. In fact, I can literally make an app that has all the features of the Spotify app, plus my own. The player won't actually run in my app, however, it will run in the Spotify app. I believe that should work, which would be awesome... But for now, I'll do what I know.
+
+UI to do:
+- Queue
+- Shuffle button
+- Volume?
+- Log out
+- Choosing tags
+- Adding tags
+- Implementing a JS framework in general. I really still think Vue would be great. But anything that allows UI components to automatically update based on state changes.
+- Better player. More accurate progress bar. Time loading before clicking play.
+- Not just playlist intersection, but also addition.
+- Sort playlists by most popular?
+- Play/pause button that actually changes
+- Keyboard shortcuts. At least space for play/pause.
+- Save tag combinations, optionally with names. And recommend them too! Holy shit this is gonna be good...
+
+Bug: when I reload page, song progress goes back significantly.
+
+Backend to do:
+- How we actually implement tagging a song. Maybe new playlist approach for now, but database is maybe better for later. Or maybe best yet is metadata in spotify!
+- Fetching tag info for songs from existing Spotify api as well as the vastly advanced one that I found.
+- Clean up code in general. Start using a more maintainable and reasonable design pattern.
+- Figure out access token expiration/renewal. That seems to become an issue after long enough.

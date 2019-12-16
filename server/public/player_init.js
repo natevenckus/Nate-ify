@@ -6,9 +6,6 @@ function sdkReadyHandler(accessToken) {
     getOAuthToken: cb => { cb(token); }
   });
 
-  console.log('just set player');
-  console.log('player = ' + player);
-
   // Error handling
   player.addListener('initialization_error', ({ message }) => { console.error(message); });
   player.addListener('authentication_error', ({ message }) => { console.error(message); });
@@ -21,7 +18,7 @@ function sdkReadyHandler(accessToken) {
   // Ready
   player.addListener('ready', ({ device_id }) => {
     console.log('Ready with Device ID', device_id);
-    transferToThisDevice(device_id);
+    //transferToThisDevice(device_id);
   });
 
   // Not Ready
@@ -43,7 +40,7 @@ function render(state) {
   currentTrack = state.track_window.current_track;
   trackPositionMs = lastState.position;
   trackDurationMs = currentTrack.duration_ms;
-  console.log(state.track_window.current_track);
+
   document.getElementById('trackName').innerHTML = currentTrack.name;
   document.getElementById('artistName').innerHTML = currentTrack.artists[0].name;
   document.getElementById('current-song-image').src = currentTrack.album.images[0].url;
@@ -102,8 +99,6 @@ var playlists = [];
 
 function renderPlaylistsRecurse(limit, offset) {
   window.spotifyApi.getUserPlaylists({limit: limit, offset: offset}).then(function(data) {
-    console.log(data);
-
     data.items.forEach(item => {
       playlists.push(item);
     });
@@ -116,10 +111,12 @@ function renderPlaylistsRecurse(limit, offset) {
       playlistDiv.style.listStyleType = "decimal";
 
       playlists.forEach(playlist => {
+        if(playlist.tracks.total > 100) {
          playlistDiv.innerHTML += "<li>";
          playlistDiv.innerHTML += playlist.name;
          playlistDiv.innerHTML += "<input type='checkbox' value='" + playlist.id + "' onchange='checkPlaylist(this)'>";
          playlistDiv.innerHTML += "</li>";
+       }
       });
     }
   });

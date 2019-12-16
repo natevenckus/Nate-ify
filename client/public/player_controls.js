@@ -1,5 +1,4 @@
 function togglePlay() {
-	console.log("window: " + window);
 	window.player.togglePlay();
 }
 
@@ -127,4 +126,11 @@ function playBasedOnChecked() {
 	        return b.indexOf(e) > -1;
 	    });
 	}
+}
+
+function getCategories() {
+	window.spotifyApi.getCategories().then(function(data) {
+		console.log("Categories:");
+		console.log(data);
+	});
 }
