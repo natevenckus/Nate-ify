@@ -23,6 +23,11 @@
         width: 1em;
       }
 
+      #shuffle-button {
+        width: 2em;
+        margin-right: 1.5em;
+      }
+
       #current-song-image {
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
       }
@@ -52,6 +57,7 @@
         <img id='current-song-image'>
         <br>
         <br>
+        <img id='shuffle-button' src="shuffle_256.png" onclick="enableShuffle()">
         <img id='prev-track-button' src="prev-track.png" onclick="prevTrack()">
         <img id='play-pause-button' src="play-pause.png" onclick="togglePlay()">
         <img id='next-track-button' src="next-track.png" onclick="nextTrack()">

@@ -18,7 +18,7 @@ function sdkReadyHandler(accessToken) {
   // Ready
   player.addListener('ready', ({ device_id }) => {
     console.log('Ready with Device ID', device_id);
-    //transferToThisDevice(device_id);
+    transferToThisDevice(device_id);
   });
 
   // Not Ready
