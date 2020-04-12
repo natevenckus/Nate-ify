@@ -29,7 +29,8 @@ function sdkReadyHandler(accessToken) {
   // Connect to the player!
   player.connect();
 
-  renderPlaylists();
+  //renderPlaylists();
+  getAllTracks();
 };
 
 var lastState;
@@ -45,6 +46,7 @@ function render(state) {
   document.getElementById('artistName').innerHTML = currentTrack.artists[0].name;
   document.getElementById('current-song-image').src = currentTrack.album.images[0].url;
 
+  //updateTagSuggestions(state);
   updateHeart();
 }
 
@@ -75,6 +77,61 @@ function formatMilliseconds(ms) {
   var secsStr = secs < 10 ? "0" + secs : secs;
 
   return mins + ":" + secsStr;
+}
+
+var tracks = [];
+
+function getAllTracks() {
+  tracks = [];
+  getMyTracksRecursive(50, 0);
+}
+
+function getMyTracksRecursive(limit, offset) {
+  window.spotifyApi.getMySavedTracks({limit: limit, offset: offset}).then(function(data) {
+    tracks.push(...data.items);
+
+    if(data.total > limit + offset) {
+      getMyTracksRecursive(limit, offset + limit);  
+    } else {
+      alert("done");
+    }
+  });
+}
+
+function playSongsByDate() {
+  var start = new Date(document.getElementById("startDate").value);
+  var end = new Date(document.getElementById("endDate").value);
+  alert(start);
+  alert(end);
+  var dateFiltered = filterTracksByDate(tracks, start, end);
+  var uris = dateFiltered.map(track => track.track.uri);
+  playSongs(uris);
+}
+
+function playSongs(songIDs) {
+	window.spotifyApi.play(
+		{
+			"uris": songIDs
+		}, 
+		function(error, data) {
+			if(error) {
+				console.log(error);
+			}
+		}
+	);
+}
+
+function filterTracksByDate(tracks, start, end) {
+  return tracks.filter(track => {
+    var releaseDate = new Date(track.track.album.release_date);
+    
+    if(releaseDate >= start && releaseDate <= end) {
+      //console.log(track);
+      return true;
+    }
+
+    return false;
+  });
 }
 
 function updateProgressBar() {
@@ -129,6 +186,38 @@ function transferToThisDevice(deviceID) {
       alert(error);
     }
   });
+}
+
+//TODO: put this in its own Vue component, definitely.
+function updateTagSuggestions(state) {
+  var artistID = state.track_window.current_track.artists[0].uri.split(":")[2]
+  var albumID = state.track_window.current_track.album.uri.split(":")[2]
+  var trackID = state.track_window.current_track.id
+
+  if(!artistID) 
+    return null
+
+  window.spotifyApi.getAlbum(albumID).then(function(data) {
+    console.log("album:");
+    console.log(data)
+  })
+
+  window.spotifyApi.getTrack(trackID).then(function(data) {
+    console.log("track:");
+    console.log(data)
+  })
+
+  window.spotifyApi.getArtist(artistID).then(function(data) {
+    var tagSuggestions = document.getElementById("tagSuggestions")
+
+    console.log(data.genres)
+
+    tagSuggestions.innerHTML = ""
+
+    data.genres.forEach(genre => {
+      tagSuggestions.innerHTML += genre + "<br>"
+    })
+  })
 }
 
 setInterval(updateProgressBar, 1000);

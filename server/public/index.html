@@ -66,6 +66,11 @@
         <input type="range" id="progressBar" min="0" max="100" step="1" value="0" style="width: 50%" onchange="seek(this.value)">
         <p id="trackPosition"></p>
         <p id="trackDuration"></p>
+        <p>Tag this song? Suggested tags:</p>
+        <div id="dateFilter">
+          Play songs between <input type="date" id="startDate"/> and <input type="date" id="endDate"/> <input type="button" value="Go" onclick="playSongsByDate()"/>
+        </div>
+        <div id="tagSuggestions"/>
         <div id="playlists">
           <h4>Only play songs belonging to ALL of these playlists:</h4>
         </div>
